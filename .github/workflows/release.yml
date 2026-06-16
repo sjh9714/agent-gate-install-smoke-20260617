@@ -1,0 +1,17 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish
+        run: |
+          echo "publishing with ${{ secrets.RELEASE_TOKEN }}"
