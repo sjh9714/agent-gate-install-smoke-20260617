@@ -17,3 +17,8 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           mode: warn
           fail-on-block: false
+
+      - name: Verify report finding IDs
+        run: |
+          grep -E 'Finding ID: `agf_[0-9a-f]{16}`' agent-gate-report.md
+          grep -E '"findingId": "agf_[0-9a-f]{16}"' agent-gate-report.json
