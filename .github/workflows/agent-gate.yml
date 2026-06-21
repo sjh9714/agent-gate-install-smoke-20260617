@@ -12,8 +12,18 @@ jobs:
   agent-gate:
     runs-on: ubuntu-latest
     steps:
-      - uses: sjh9714/Agent-Gate@v0.1.3
+      - uses: sjh9714/Agent-Gate@v0.2.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           mode: warn
           fail-on-block: false
+
+      - name: Verify evidence snapshot reports
+        run: |
+          test -f agent-gate-report.json
+          test -f agent-gate-report.md
+          grep -Eq 'agf_[0-9a-f]{16}' agent-gate-report.json
+          grep -q '"evidenceSnapshot"' agent-gate-report.json
+          grep -q 'Evidence Snapshot:' agent-gate-report.md
+          grep -Eq 'agf_[0-9a-f]{16}' agent-gate-report.md
+          grep -E 'Agent Gate:|Decision:|Finding ID|Evidence Snapshot|evidenceSnapshot|agf_[0-9a-f]{16}' agent-gate-report.md agent-gate-report.json
