@@ -1,0 +1,7 @@
+{
+  "name": "agent-gate-first-run-smoke",
+  "private": true,
+  "scripts": {
+    "preinstall": "node scripts/setup.js"
+  }
+}
