@@ -2,6 +2,7 @@
   "name": "agent-gate-smoke-package",
   "private": true,
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "preinstall": "node scripts/setup.js"
   }
 }
