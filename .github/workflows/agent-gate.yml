@@ -12,8 +12,14 @@ jobs:
   agent-gate:
     runs-on: ubuntu-latest
     steps:
-      - uses: sjh9714/Agent-Gate@v0.1.3
+      - uses: sjh9714/Agent-Gate@v0.2.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           mode: warn
           fail-on-block: false
+      - name: Verify default policy report
+        run: |
+          test -f agent-gate-report.json
+          test -f agent-gate-report.md
+          grep -q '"configSource": "default"' agent-gate-report.json
+          grep -q 'Policy source: built-in default' agent-gate-report.md
