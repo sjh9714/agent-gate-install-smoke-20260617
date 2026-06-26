@@ -17,3 +17,21 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           mode: warn
           fail-on-block: false
+      - name: Verify Agent Gate reports
+        run: |
+          grep -q 'dependency/lifecycle-script-added' agent-gate-report.md
+          grep -q 'Finding ID: `agf_' agent-gate-report.md
+          grep -q 'Snapshot:' agent-gate-report.md
+          node <<'NODE'
+          const fs = require('fs');
+          const report = JSON.parse(fs.readFileSync('agent-gate-report.json', 'utf8'));
+          if (report.decision !== 'warn') throw new Error(`expected warn, got ${report.decision}`);
+          if (report.metadata.configSource !== 'default') throw new Error(`expected default config source, got ${report.metadata.configSource}`);
+          const finding = report.findings.find((item) => item.ruleId === 'dependency/lifecycle-script-added');
+          if (!finding) throw new Error('missing lifecycle script finding');
+          if (!/^agf_[0-9a-f]{16}$/.test(finding.findingId)) throw new Error(`bad finding id: ${finding.findingId}`);
+          if (!finding.evidenceSnapshot) throw new Error('missing evidenceSnapshot');
+          if (!finding.evidenceSnapshot.evidence.some((item) => item.label === 'script' && item.value === 'preinstall')) {
+            throw new Error('missing script evidence');
+          }
+          NODE
