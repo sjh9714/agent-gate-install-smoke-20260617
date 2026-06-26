@@ -1,0 +1,7 @@
+{
+  "name": "agent-gate-smoke-package",
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  }
+}
