@@ -17,3 +17,10 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           mode: warn
           fail-on-block: false
+      - name: Print Agent Gate reports
+        if: always()
+        run: |
+          echo "## JSON report"
+          cat agent-gate-report.json
+          echo "## Markdown report"
+          cat agent-gate-report.md
