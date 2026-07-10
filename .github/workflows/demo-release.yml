@@ -1,0 +1,16 @@
+name: Demo release baseline
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Baseline only
+        run: echo "No release is performed by this proof fixture."
