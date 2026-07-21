@@ -1,4 +1,4 @@
-name: Agent Gate
+name: MergeWarden
 
 on:
   pull_request:
@@ -6,14 +6,15 @@ on:
 
 permissions:
   contents: read
-  pull-requests: read
+  pull-requests: write
 
 jobs:
-  agent-gate:
+  mergewarden:
     runs-on: ubuntu-latest
     steps:
-      - uses: sjh9714/Agent-Gate@5fc4a3a5087620ff23c6cb5b0351c3969339fc01 # v0.3.1
+      - uses: sjh9714/mergewarden@21982fe53cec6d465777bc853de097da8f74708d # v0.4.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           mode: warn
           fail-on-block: false
+          comment: "true"
