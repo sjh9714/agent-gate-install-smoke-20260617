@@ -12,7 +12,7 @@ jobs:
   mergewarden:
     runs-on: ubuntu-latest
     steps:
-      - uses: sjh9714/mergewarden@d4892fa234498032a1e1bea6ff3882e76506722b # v0.5.0
+      - uses: sjh9714/mergewarden@3f87f5d1197e24482aa3f0a788e0158e41d53baa # v0.5.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           mode: warn
