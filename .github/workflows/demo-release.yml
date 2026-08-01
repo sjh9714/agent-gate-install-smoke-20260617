@@ -4,13 +4,15 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
+      id-token: write
     steps:
+      - uses: actions/checkout@v4
       - name: Baseline only
         run: echo "No release is performed by this proof fixture."
