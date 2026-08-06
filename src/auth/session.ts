@@ -1,3 +1,3 @@
-export function normalizeSessionId(value: string): string {
-  return value.trim();
+export function sessionExpiry(issuedAt: number): number {
+  return issuedAt + 3600;
 }
